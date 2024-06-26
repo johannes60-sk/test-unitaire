@@ -1,44 +1,44 @@
-
-
 export const RPNCalculator = (expression) => {
-    const tokens = expression.split(' ');
-    const stack = [];
-  
-    for (let token of tokens) {
-      if (!isNaN(token)) {
-        stack.push(parseFloat(token));
-      } else if (['+', '-', '*', '/'].includes(token)) {
-        const b = stack.pop();
-        const a = stack.pop();
-        switch (token) {
-          case '+':
-            stack.push(a + b);
-            break;
-          case '-':
-            stack.push(a - b);
-            break;
-          case '*':
-            stack.push(a * b);
-            break;
-          case '/':
-            stack.push(a / b);
-            break;
-        }
-      } else if (token === 'SQRT') {
-        const a = stack.pop();
-        stack.push(Math.sqrt(a));
-      } else if (token === 'MAX') {
-        stack.push(Math.max(...stack));
-        stack.length = 1;
-      } else {
-        throw new Error(`Unknown token: ${token}`);
+  const elements = expression.split(" ");
+  const stack = [];
+
+  elements.forEach((element) => {
+    if (!isNaN(element)) {
+      stack.push(parseFloat(element));
+    } else if (["+", "-", "*", "/"].includes(element)) {
+      const num2 = stack.pop();
+      const num1 = stack.pop();
+      let result;
+      switch (element) {
+        case "+":
+          result = num1 + num2;
+          break;
+        case "-":
+          result = num1 - num2;
+          break;
+        case "*":
+          result = num1 * num2;
+          break;
+        case "/":
+          result = num1 / num2;
+          break;
       }
+      stack.push(result);
+    } else if (element === "SQRT") {
+      const num = stack.pop();
+      stack.push(Math.sqrt(num));
+    } else if (element === "MAX") {
+      const maxVal = Math.max(...stack);
+      stack.length = 0; 
+      stack.push(maxVal);
+    } else {
+      throw new Error(`Invalid token: ${element}`);
     }
-  
-    if (stack.length !== 1) {
-      throw new Error('Invalid RPN expression');
-    }
-  
-    return stack.pop();
-  };
-  
+  });
+
+  if (stack.length !== 1) {
+    throw new Error("Invalid RPN expression");
+  }
+
+  return stack[0];
+};
