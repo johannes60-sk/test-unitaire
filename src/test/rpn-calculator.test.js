@@ -16,3 +16,7 @@ test("4 2 + 3 - should return 3", () => {
   test("9 SQRT should return 3", () => {
     expect(RPNCalculator("9 SQRT")).toBe(3);
   });
+
+  test("5 3 4 2 9 1 MAX should return 9", () => {
+    expect(RPNCalculator("5 3 4 2 9 1 MAX")).toBe(9);
+  });
