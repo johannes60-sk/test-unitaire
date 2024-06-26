@@ -12,3 +12,7 @@ test("4 2 + 3 - should return 3", () => {
   test("3 5 8 * 7 + * should return 141", () => {
     expect(RPNCalculator("3 5 8 * 7 + *")).toBe(141);
   });
+
+  test("9 SQRT should return 3", () => {
+    expect(RPNCalculator("9 SQRT")).toBe(3);
+  });
